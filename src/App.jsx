@@ -1,71 +1,61 @@
+import { useEffect, useState } from 'react'
+import Preloader from './components/Preloader'
+import Hero from './components/Hero'
+import About from './components/About'
+import Experience from './components/Experience'
+import Education from './components/Education'
+import Projects from './components/Projects'
+import Achievements from './components/Achievements'
+import Contact from './components/Contact'
+
 function App() {
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    // optional: lock scroll while preloading
+    if (!loaded) document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = '' }
+  }, [loaded])
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent_50%)]"></div>
+    <div className="min-h-screen bg-slate-950 text-white">
+      {!loaded && <Preloader onComplete={() => setLoaded(true)} />}
 
-      <div className="relative min-h-screen flex items-center justify-center p-8">
-        <div className="max-w-2xl w-full">
-          {/* Header with Flames icon */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center mb-6">
-              <img
-                src="/flame-icon.svg"
-                alt="Flames"
-                className="w-24 h-24 drop-shadow-[0_0_25px_rgba(59,130,246,0.5)]"
-              />
-            </div>
+      <header className="fixed top-0 left-0 right-0 z-40">
+        <div className="max-w-6xl mx-auto px-6 md:px-10 py-5 flex items-center justify-between">
+          <a href="#home" className="text-sm font-semibold tracking-wide text-blue-200/80">MATTRAL</a>
+          <nav className="hidden md:flex items-center gap-6 text-blue-200/80">
+            <a href="#about" className="hover:text-white/90">About</a>
+            <a href="#experience" className="hover:text-white/90">Timeline</a>
+            <a href="#education" className="hover:text-white/90">Education</a>
+            <a href="#projects" className="hover:text-white/90">Projects</a>
+            <a href="#achievements" className="hover:text-white/90">Awards</a>
+            <a href="#contact" className="hover:text-white/90">Contact</a>
+          </nav>
+        </div>
+      </header>
 
-            <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
-              Flames Blue
-            </h1>
+      <main className="relative">
+        <Hero />
+        <About />
+        <Experience />
+        <Education />
+        <Projects />
+        <Achievements />
+        <Contact />
+      </main>
 
-            <p className="text-xl text-blue-200 mb-6">
-              Build applications through conversation
-            </p>
-          </div>
-
-          {/* Instructions */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-8 shadow-xl mb-6">
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                1
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Describe your idea</h3>
-                <p className="text-blue-200/80 text-sm">Use the chat panel on the left to tell the AI what you want to build</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4 mb-6">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                2
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Watch it build</h3>
-                <p className="text-blue-200/80 text-sm">Your app will appear in this preview as the AI generates the code</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-bold">
-                3
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Refine and iterate</h3>
-                <p className="text-blue-200/80 text-sm">Continue the conversation to add features and make changes</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="text-center">
-            <p className="text-sm text-blue-300/60">
-              No coding required • Just describe what you want
-            </p>
+      <footer className="relative py-12">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.15),transparent_40%)]" />
+        <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="text-blue-200/70">© {new Date().getFullYear()} MATTRAL</div>
+          <div className="flex items-center gap-4 text-blue-200/80">
+            <a href="#" className="hover:text-white/90">GitHub</a>
+            <a href="#" className="hover:text-white/90">Twitter</a>
+            <a href="#" className="hover:text-white/90">LinkedIn</a>
           </div>
         </div>
-      </div>
+      </footer>
     </div>
   )
 }
